@@ -1,4 +1,6 @@
+const { response } = require('express');
 const express = require('express');
+const path = require('path');
 const app = express();
 const port = 3000;
 
@@ -6,9 +8,10 @@ const home = require('./routes/home.js');
 const pets = require('./routes/pets.js');
 
 app.use(express.static('public'));
+app.use(express.urlencoded({extended: true}));
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.sendFile(path.join(__dirname, '/views/home.html'));
 });
 
 app.use('/home', home);
